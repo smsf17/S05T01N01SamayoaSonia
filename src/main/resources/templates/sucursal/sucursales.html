@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head th:replace="plantilla/template :: head">
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"> </header>
+
+	<div class="container">	
+		<h1 th:text="${titulo}"></h1>		
+	</div>
+
+	<div class="container">
+	
+		<a class="btn btn-primary" th:href="@{/sucursal/add}"
+			th:text="'Nueva Sucursal'">
+		</a>
+	
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="col">IDSucursal</th>
+					<th scope="col">Nom Sucursal</th>
+					<th scope="col">Pais</th>
+					<th scope="col">Tipo Sucursal</th>
+					<th scope="col">EDITAR</th>
+					<th scope="col">ELIMINAR</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="suc:${sucursales}">
+					<th scope="row"th:text="${suc.pk_SucursalID}"></th>
+					<td th:text="${suc.nomSucursal}"></td>
+					<td th:text="${suc.paisSucursal}"></td>
+					<td th:text="${suc.tipusSucursal}"></td>
+					<td>
+						<a class="btn btn-success btn-sm" th:href="@{/sucursal/update/} + ${suc.pk_SucursalID}"
+							th:text="'EDITAR'" title="Editar Registro">							
+						</a>
+					</td>
+					<td>
+						<a class="btn btn-danger btn-sm" th:href="@{/sucursal/delete/} + ${suc.pk_SucursalID}"
+							th:text="'ELIMINAR'" title="Eliminar Registro"
+							onclick="return confirm('Esta seguro de eliminar el registro?');">	
+												
+						</a>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+</html>
+
