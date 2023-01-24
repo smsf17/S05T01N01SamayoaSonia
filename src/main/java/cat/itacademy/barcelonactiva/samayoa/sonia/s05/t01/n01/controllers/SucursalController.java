@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import cat.itacademy.barcelonactiva.samayoa.sonia.s05.t01.n01.model.domain.Sucursal;
 import cat.itacademy.barcelonactiva.samayoa.sonia.s05.t01.n01.model.dto.SucursalDTO;
@@ -39,6 +38,7 @@ public class SucursalController {
 	public String update(@PathVariable("id") Long idSucursal, Model model) {
 		
 		Sucursal sucursal = new Sucursal();
+		sucursal = sucursalService.getOne(idSucursal);
 		model.addAttribute("titulo", "Formulario Editar Sucursal");
 		model.addAttribute("sucursal", sucursal);
 		
@@ -47,20 +47,18 @@ public class SucursalController {
 	
 		
 	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable("id") Long id) {
+	public String delete(@PathVariable("id") Long id, Model model) {
 		
 		sucursalService.delete(id);
-		System.out.println("registro eliminado");
+		System.out.println("registro con id: " +id+ " eliminado");
 		
-		return "/sucursal/sucursales";
+		return this.getAll(model);
 	}
 	
 	@GetMapping("/getOne/{id}")
-	public ModelAndView getOneSucursal(ModelAndView modelAndView, @PathVariable("id") Long id) {
-		SucursalDTO sucursal = sucursalService.getOne(id);
-		modelAndView.addObject("Sucursal", sucursal);
-		modelAndView.setViewName("sucursal/getOneSucursal");
-		return modelAndView;
+	public String getOneSucursal(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("Sucursal", sucursalService.getOne(id));
+		return "/sucursal/consultaSucursal";
 	}
 	
 	@GetMapping("/getAll")
@@ -72,22 +70,14 @@ public class SucursalController {
 	}
 	
 	@PostMapping("/save")
-	public String guardar(@ModelAttribute SucursalDTO sucursalDTO) {
+	public String guardar(@ModelAttribute SucursalDTO sucursalDTO, Model model) {
 
 		sucursalService.add(sucursalDTO);
 		System.out.println("Sucursal guardada correctament");
 		
-		return "redirect:/sucursal/getAll";
+		return this.getAll(model);
+				
 	}
-	
-	/*@PostMapping("/saveUptade")
-	public String guardarUpdate(@ModelAttribute SucursalDTO sucursalDTOUpdate) {
-		
-		sucursalService.update(sucursalDTOUpdate);
-		System.out.println("Sucursal actualitzada correctament");
-		
-		return "redirect:/sucursal/getAll";
-	}*/
-	
+
 
 }

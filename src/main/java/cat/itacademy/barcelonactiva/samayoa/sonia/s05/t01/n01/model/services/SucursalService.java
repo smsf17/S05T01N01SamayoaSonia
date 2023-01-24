@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.samayoa.sonia.s05.t01.n01.model.services;
 
 import java.util.List;
 
+import cat.itacademy.barcelonactiva.samayoa.sonia.s05.t01.n01.model.domain.Sucursal;
 import cat.itacademy.barcelonactiva.samayoa.sonia.s05.t01.n01.model.dto.SucursalDTO;
 
 public interface SucursalService {
@@ -15,7 +16,7 @@ public interface SucursalService {
 	public Long add(SucursalDTO sucursalDTO);
 	public SucursalDTO update(SucursalDTO sucursalDTO, Long Pk_SucursalID);
 	public void delete(Long id);
-	public SucursalDTO getOne(Long id);
+	public Sucursal getOne(Long id);
 	public List<SucursalDTO> getAll();
 
 }

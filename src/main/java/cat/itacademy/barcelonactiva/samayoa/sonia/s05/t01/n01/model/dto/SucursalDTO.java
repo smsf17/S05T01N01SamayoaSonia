@@ -40,9 +40,17 @@ public class SucursalDTO {
 		this.paisSucursal = paisSucursal;
 	}
 
-	public String getTipusSucursal(String paisSucursal) {
+	public String getTipusSucursal() {
+		return tipusSucursal;
+	}
+
+	public void setTipusSucursal(String tipusSucursal) {
+		this.tipusSucursal = tipusSucursal;
+	}
+
+	public String getTipusSucursal(String pais) {
 		this.tipusSucursal = "Sense Tipus";
-		int indice = paisesEU.indexOf(paisSucursal);
+		int indice = paisesEU.indexOf(pais);
 		if (indice != -1) {
 			this.tipusSucursal = "EU";
 		} else {
@@ -52,6 +60,7 @@ public class SucursalDTO {
 		return this.tipusSucursal;
 
 	}
+	
 
 	
 	

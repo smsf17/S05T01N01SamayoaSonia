@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<th:block th:insert="Fragments/head :: head"></th:block>
+<head th:replace="plantilla/template :: head">
 </head>
 <body>
+<header th:replace="plantilla/template :: header"> </header>
+
 	<div class="container">
-		<div th:insert="Fragments/BodyHeader :: div"></div>
-
-
-
+	
 		<h3>Consulta</h3>
-		<form th:object="${DATA_SucursalesDtoFormulari}" method="get"
-			th:action="@{/getAll}">
+		<form th:action="@{/sucursal/getOne/ + ${suc.pk_SucursalID}}" method="get">
 
 			<input type="hidden" th:field="*{pk_SucursalID}">
 

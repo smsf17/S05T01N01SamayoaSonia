@@ -27,11 +27,10 @@ public class SucursalServiceImpl implements SucursalService {
 	@Override
 	public SucursalDTO update(SucursalDTO sucursalDTO, Long pk_SucursalID) {
 				
-		SucursalDTO sucursalUpdate = this.getOne(pk_SucursalID);
-		Sucursal sucursal = this.mapDTOToEntity(sucursalUpdate);
+		Sucursal sucursalUpdate = sucursalRepo.findById(pk_SucursalID).orElse(null);
+		SucursalDTO sucursal = this.mapEntityToDTO(sucursalUpdate);
 		sucursal = sucursalRepo.save(sucursal);
-		sucursalUpdate = this.mapEntityToDTO(sucursal);
-		return sucursalUpdate;
+		return sucursal;
 	}
 
 	@Override
@@ -41,11 +40,11 @@ public class SucursalServiceImpl implements SucursalService {
 	}
 
 	@Override
-	public SucursalDTO getOne(Long id) {
-		SucursalDTO resultat = new SucursalDTO();
+	public Sucursal getOne(Long id) {
+		Sucursal resultat = null;
 		Optional<Sucursal> sucursal = sucursalRepo.findById(id);
 		if(sucursal.isPresent()) {
-			resultat=this.mapEntityToDTO(sucursal.get());
+			resultat=sucursal.get();
 		}
 		return resultat;
 	}
